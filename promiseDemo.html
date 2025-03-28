@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const P = "pending";
+        const F = "fulfilled";
+        const R = "rejected";
+        class MyPromise {
+            state = P;
+            res = undefined;
+            constructor(func) {
+                const resolve = (res) => {
+                    if (this.state == P) {
+                        this.state = F;
+                    }
+                    this.res = res;
+                }
+                const reject = (res) => {
+                    if (this.state == P) {
+                        this.state = R;
+                    }
+                    this.res = res;
+                }
+                func(resolve, reject)
+            }
+            then(onFulfilled, onRejected) {
+                onFulfilled = typeof onFulfilled === "function" ? onFulfilled : x => x;
+                onRejected = typeof onRejected === "function" ? onRejected : x => {
+                    throw x
+                };
+                if (this.state == F) {
+                    onFulfilled(this.res);
+                } else if (this.state == R) {
+                    onRejected(this.res);
+                }
+            }
+        }
+
+        const p = new MyPromise(function (resolve, reject) {
+            // resolve("success");
+            reject("error");
+        })
+        console.log(p.state);
+        console.log(p.res);
+        // p.then((res) => {
+        //     console.log(res);
+        // }, (err) => {
+        //     console.log(err);
+        // })
+    </script>
+</body>
+
+</html>

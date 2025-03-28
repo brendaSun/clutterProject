@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" name="" id="" class="ipt">
+    <script>
+        document.querySelector(".ipt").addEventListener("change", async function () {
+            const img = this.files[0];
+            const frmData = new FormData()
+            frmData.append('img', img)
+            const res = await fetch("http://hmajax.itheima.net/api/uploadimg", {
+                method: "post",
+                body: frmData
+            })
+            const resData = await res.json();
+            console.log(resData)
+        })
+    </script>
+</body>
+
+</html>

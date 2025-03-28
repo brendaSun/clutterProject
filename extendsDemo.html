@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* //es6
+        // 父类
+        class Person {
+            // 公有属性
+            name
+            // 构造函数
+            constructor(name) {
+                this.name = name;
+            }
+            // 公有方法
+            sayHi() {
+                console.log("你好");
+            }
+        }
+        // 子类
+        class Student extends Person {
+            age
+            constructor(name, age) {
+                super(name)
+                this.age = age
+            }
+            sayHello() {
+                console.log("hello")
+            }
+        }
+        // 实例化Person类
+        // const p = new Person("张三");
+        // console.log(p.name);
+        // p.sayHi();
+        const s = new Student("李四", 18);
+        console.log(s.age);
+        console.log(s.name); */
+
+        // es5 寄生组合式继承:构造函数继承属性，原型链继承方法
+        // 父类
+        function Person(name) {
+            this.name = name;
+        }
+        Person.prototype.sayHi = function () {
+            console.log("sayHi");
+        }
+        // 子类
+        // 构造函数继承属性
+        function Student(name) {
+            Person.call(this, name);
+        }
+        // 原型链继承方法  Object.create:创建对象
+        const p = Object.create(Person.prototype, {
+            constructor: {
+                value: Student
+            }
+        });
+        Student.prototype = p;
+        const s = new Student("李四");
+    </script>
+</body>
+
+</html>

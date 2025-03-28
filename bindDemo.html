@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 手写bind方法
+        Function.prototype.myBind = function (thisArg, ...args) {
+            return (...reArgs) => {
+                return this.call(thisArg, ...args, ...reArgs);
+            }
+        }
+
+        const Person = {
+            name: "zhangsan",
+        }
+
+        function func(numA, numB, numC, numD) {
+            console.log(this);
+            return numA + numB + numC + numD;
+        }
+        const bindFunc = func.myBind(Person, 1, 2);
+        const res = bindFunc(3, 4)
+        console.log(res);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 手写call方法
+        Function.prototype.myCall = function (thisArg, ...args) {
+            // 在Function中f可能会重名，使用Symbol()创建唯一的名称
+            const key = Symbol('key');
+            // thisArg.key则key唯一，实际上key不唯一,故使用thisArg[key]
+            // thisArg.f = this;
+            thisArg[key] = this;
+            const res = thisArg[key](...args);
+            delete thisArg[key];
+            return res;
+        }
+
+        const Person = {
+            name: "zhangsan",
+        }
+
+        function func(numA, numB) {
+            console.log(this);
+            console.log(numA);
+            console.log(numB);
+            return numA + numB;
+        }
+        const res = func.myCall(Person, 1, 2);
+        console.log(res);
+    </script>
+</body>
+
+</html>

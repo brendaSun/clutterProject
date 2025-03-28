@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 闭包
+        /* function outerFunction(outerVar) {
+            let innerVar = 'inner';
+
+            function innerFunction(innerParam) {
+                console.log(`Outer variable: ${outerVar}`); // 访问外部函数的参数
+                console.log(`Inner parameter: ${innerParam}`); // 访问自身的形参
+
+                if (typeof globalVar !== 'undefined') {
+                    console.log(`Global variable: ${globalVar}`); // 尝试访问全局变量
+                }
+
+                try {
+                    console.log(nonExistentVar); // 此处将会引发异常，因为找不到此变量
+                } catch (e) {
+                    console.error('Reference error occurred');
+                }
+            }
+
+            return innerFunction;
+        }
+
+        const myFunc = outerFunction('from outside'); // Outer variable: from outside
+        myFunc('passed to inside'); // Inner parameter: passed to inside
+        // Reference error occurred */
+
+        // 严格模式
+        /* function fn() {
+            'use strict' // 严格模式
+            console.log(this); // undefined
+        }
+        fn(); */
+
+        // 非严格模式
+        function fn() {
+            console.log(this); // window
+        }
+        fn();
+        const Person = {
+            name: "zhangsan"
+        }
+        // call()、apply()、bind()改变函数中this指向(直接调用时指定this)
+        fn.call(Person); // {name: 'zhangsan'}
+        fn.apply(Person); // {name: 'zhangsan'}
+        const bindFn = fn.bind(Person);
+        bindFn(); // {name: 'zhangsan'}
+
+        /* const obj = {
+            name: "lisi",
+            fn() {
+                console.log(this);
+                setTimeout(function () {
+                    console.log(this);
+                }, 1000)
+            }
+        }
+        obj.fn(); // {name: 'lisi', fn: ƒ}  window */
+
+        /* // 箭头函数中的this指向上一层作用域的this指向
+        const obj = {
+            name: "lisi",
+            fn() {
+                console.log(this);
+                setTimeout(() => {
+                    console.log(this);
+                }, 1000)
+            }
+        }
+        obj.fn(); // {name: 'lisi', fn: ƒ}  {name: 'lisi', fn: ƒ} */
+
+        
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // fetch请求后端接口，时window自带的，不需要单独安装，返回promise对象
+        // async使得其内部函数由同步变成异步
+        async function fn() {
+            const p = new URLSearchParams({
+                pname: "广东省",
+                cname: "深圳市"
+            });
+            // await等待promise对象执行完并返回结果
+            // fetch返回promise对象
+            const res = await fetch("http://hmajax.itheima.net/api/area?" + p.toString());
+            // res.json()返回promise对象
+            console.log("res", res)
+            const areaData = await res.json();
+            console.log("areaData", areaData);
+        }
+        fn()
+
+        // const p = new URLSearchParams({
+        //     pname: "广东省",
+        //     cname: "深圳市"
+        // });
+        // // fetch返回promise对象
+        // const res = fetch("http://hmajax.itheima.net/api/area?" + p.toString()).then(val => {
+        //     // val.json()返回promise对象
+        //     val.json().then(val => {
+        //         console.log(val)
+        //     })
+        // });
+    </script>
+</body>
+
+</html>
