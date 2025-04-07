@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function asyncOperation(data, callback) {
+            setTimeout(() => {
+                const result = data * 2;
+                callback(result);
+            }, 1000);
+        }
+
+        // 使用
+        asyncOperation(10, function (result) {
+            console.log('结果是:', result); // 2秒后输出: 结果是: 20
+        });
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>promise</title>
+    <title>promiseDemo</title>
 </head>
 
 <body>
@@ -28,32 +28,52 @@
                     }
                     this.res = res;
                 }
-                func(resolve, reject)
+                func(resolve, reject);
             }
+
             then(onFulfilled, onRejected) {
                 onFulfilled = typeof onFulfilled === "function" ? onFulfilled : x => x;
                 onRejected = typeof onRejected === "function" ? onRejected : x => {
                     throw x
                 };
+                
                 if (this.state == F) {
-                    onFulfilled(this.res);
+                    // 实现异步操作,先执行后面的代码,再执行setTimeout回调函数中的代码
+                    setTimeout(() => {
+                        onFulfilled(this.res)
+                    }, 0);
                 } else if (this.state == R) {
-                    onRejected(this.res);
+                    // 实现异步操作,先执行后面的代码,再执行setTimeout回调函数中的代码
+                    setTimeout(() => {
+                        onRejected(this.res)
+                    }, 0);
                 }
             }
         }
 
+        // 实例化
         const p = new MyPromise(function (resolve, reject) {
-            // resolve("success");
-            reject("error");
+            resolve("success");
+            // reject("error");
         })
         console.log(p.state);
         console.log(p.res);
-        // p.then((res) => {
-        //     console.log(res);
-        // }, (err) => {
-        //     console.log(err);
-        // })
+        p.then((res) => {
+            console.log(res);
+            return res;
+        }, (err) => {
+            console.log(err);
+        })
+        console.log(1);
+        // 结果： 
+        // fulfilled
+        // success
+        // 1
+        // success
+
+        
+
+
     </script>
 </body>
 
